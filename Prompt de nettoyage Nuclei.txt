@@ -1,0 +1,51 @@
+## CONTEXTE
+Tu es un expert en sécurité et en développement logiciel. Tu vas convertir un fichier JSON contenant une bibliothèque de détection de vulnérabilités (format Nuclei) vers un format compatible avec **CodeForge**, un IDE visuel de génération de code.
+
+## OBJECTIF
+Transformer le fichier JSON attaché (`QwNuclei.json`) en une bibliothèque CodeForge exploitable, avec les spécifications suivantes.
+
+## STRUCTURE D'ENTRÉE (format actuel)
+Le fichier contient une section `"functions"` avec des objets ayant notamment :
+- `id`, `name`, `description`, `severity`, `cve`, `tags`
+- `parameters` : liste de paramètres (nom, datatype, required, default)
+- `returns` : objet avec datatype, description
+- `source` : code Python complet (peut contenir des TODOs et du code générique)
+- `language` : actuellement `"Nuclei/HTTP"` (à normaliser)
+- `famille` : catégorie (WebApp, CVE, Auth, IoT, etc.)
+- `detection` : chaîne décrivant la logique de détection (à conserver)
+
+## STRUCTURE DE SORTIE (format CodeForge)
+Générer un objet JSON avec :
+```json
+{
+  "functions": [
+    {
+      "id": "string",
+      "name": "string",
+      "language": "string (Python|CSharp|JavaScript|PowerShell|Bash)",
+      "famille": "string",
+      "description": "string",
+      "severity": "string (critical|high|medium|low)",
+      "cvss_score": "number (optionnel)",
+      "cve": ["string"],
+      "tags": ["string"],
+      "detection": "string (logique originale conservée)",
+      "parameters": [
+        {
+          "name": "string",
+          "datatype": "string",
+          "required": "boolean",
+          "default": "string (optionnel)",
+          "description": "string"
+        }
+      ],
+      "returns": {
+        "datatype": "string",
+        "description": "string"
+      },
+      "source": "string (code source conservé tel quel)",
+      "source_original": "string (même contenu que source, pour historique)"
+    }
+  ],
+  "variables": []
+}
